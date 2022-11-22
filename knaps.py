@@ -25,3 +25,7 @@ with tab1:
     st.write("Import Data")
     data = pd.read_csv("https://raw.githubusercontent.com/Arifaaa/dataset/main/HepatitisCdata.csv")
     st.dataframe(data)
+    
+with tab2:
+    st.write("Preprocessing")
+    
