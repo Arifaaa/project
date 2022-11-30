@@ -47,11 +47,7 @@ with preporcessing:
     
     data = pd.get_dummies(df, columns = ['Sex'],drop_first=True)
     data.head()
-    
-    scaler = MinMaxScaler()
-    scaler.fit(X)
-    X = scaler.transform(X)
-    
+        
     X = data.drop(['Category'],axis=1)
     y = data["Category"]
     
