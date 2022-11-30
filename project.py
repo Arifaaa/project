@@ -38,6 +38,8 @@ with dataset:
 with preporcessing:
     st.write("""# Preprocessing""")
     
+    df= df.drop(["Unnamed: 0"], axis=1)
+    df.head()
     li = list(data["Category"])
     li2 = []
     for i in range(len(li)) :
