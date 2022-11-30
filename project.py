@@ -45,7 +45,7 @@ with preporcessing:
     df['Sex'].loc[df['Sex']=='f']=0
     df.head()
     
-    data = pd.get_dummies(data, columns = ['Sex'],drop_first=True)
+    data = pd.get_dummies(df, columns = ['Sex'],drop_first=True)
     data.head()
     
     scaler = MinMaxScaler()
