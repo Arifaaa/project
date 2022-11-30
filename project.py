@@ -40,7 +40,8 @@ with preporcessing:
     
     df= df.drop(["Unnamed: 0"], axis=1)
     df.head()
-    li = list(data["Category"])
+    
+    li = list(df["Category"])
     li2 = []
     for i in range(len(li)) :
         if li[i] == "0=Blood Donor":
