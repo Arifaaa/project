@@ -37,9 +37,6 @@ with dataset:
 
 with preporcessing:
     st.write("""# Preprocessing""")
-    df[["#","Category" "Age", "Sex", "ALB", "ALP", "ALT", "AST", "BIL", "CHE", "CHOL", "CREA", "GGT", "PROT"]].agg(['min','max'])
-    X = df.drop(labels = ["Unnamed: 0"],axis = 1)
-    y = df['["Unnamed: 0"]']
     
     li = list(data["Category"])
     li2 = []
