@@ -37,7 +37,7 @@ with dataset:
 
 with preporcessing:
     st.write("""# Preprocessing""")
-    
+       
     df= df.drop(["Unnamed: 0"], axis=1)
     df['Category'].loc[df['Category'].isin(["1=Hepatitis","2=Fibrosis", "3=Cirrhosis"])] = 1
     df['Category'].loc[df['Category'].isin(["0=Blood Donor", "0s=suspect Blood Donor"])] = 0
@@ -49,19 +49,20 @@ with preporcessing:
     X = data.drop(['Category'],axis=1)
     y = data["Category"]
     
-    from sklearn.preprocessing import OneHotEncoder
-    from sklearn.compose import ColumnTransformer
-    ct = ColumnTransformer(transformers=[("encoder", OneHotEncoder(), [1])], remainder="passthrough")
-    X = np.array(ct.fit_transform(X))
-    st.dataFrame(X)
+    X=data_hf.iloc[:,0:10].values 
+    y=data_hf.iloc[:,10].values
+    from sklearn.preprocessing import LabelEncoder
+    le = LabelEncoder()
+    y = le.fit_transform
+    
+    #minmax scaler
+    scaler = MinMaxScaler()
+    scaled = scaler.fit_transform(X)
+    st.write("Hasil Preprocesing : ", scaled)
     
     #data train dan data set
-    X_train,X_test,y_train,y_test= train_test_split(X,y,test_size=0.3,random_state=42,stratify=y)
-    
-    ss=StandardScaler()
-    X_test= ss.fit_transform(X_test)
-    X_train = ss.fit_transform(X_train)
-    
+    X_train,X_test,y_train,y_test=train_test_split(scaled,y,test_size=0.3,random_state=0)
+      
     
     
 
