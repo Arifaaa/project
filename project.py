@@ -31,9 +31,8 @@ with dataset:
     st.write("Dataset yang digunakan adalah Hepatitis-C Prediction dataset yang diambil dari https://www.kaggle.com/datasets/fedesoriano/hepatitis-c-dataset")
     st.write("Total datanya adalah 615 dengan data training 80% (4088) dan data testing 20% (1022)")
     
-    df = pd.read_csv(uploaded_file)
-        st.write("Nama File Anda = ", uploaded_file.name)
-        st.dataframe(df)
+    df = pd.read_csv("https://raw.githubusercontent.com/Arifaaa/dataset/main/HepatitisCdata.csv")
+    st.dataframe(df)
 
 
 with preporcessing:
