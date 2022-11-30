@@ -29,7 +29,7 @@ dataset, preporcessing, modeling, implementation = st.tabs(["Dataset", "Prepoces
 with dataset:
     st.write("""# Data Hepatitis""")
     st.write("Dataset yang digunakan adalah Hepatitis-C Prediction dataset yang diambil dari https://www.kaggle.com/datasets/fedesoriano/hepatitis-c-dataset")
-    st.write("Total datanya adalah 615 dengan data training 80% (4088) dan data testing 20% (1022)")
+    st.write("Total datanya adalah 615 dengan data training 80% (492) dan data testing 20% (123)")
     
     df = pd.read_csv("https://raw.githubusercontent.com/Arifaaa/dataset/main/HepatitisCdata.csv")
     st.dataframe(df)
@@ -37,7 +37,9 @@ with dataset:
 
 with preporcessing:
     st.write("""# Preprocessing""")
-    data = df.drop(["Unnamed: 0"], axis=1)
+    df[["Unnamed: 0","Category" "Age", "Sex", "ALB", "ALP", "ALT", "AST", "BIL", "CHE", "CHOL", "CREA", "GGT", "PROT"]].agg(['min','max'])
+    X = df.drop(labels = ["Unnamed: 0"],axis = 1)
+    y = df['["Unnamed: 0"]']
     
     li = list(data["Category"])
     li2 = []
@@ -50,9 +52,9 @@ with preporcessing:
             li2.append(2)
         else :
             li2.append(3)
-    data["NewCategory"]= li2
-    data =df.drop(["Category"], axis =1)
-    data.head(615)
+    df["NewCategory"]= li2
+    df =df.drop(["Category"], axis =1)
+    df.head(615)
     
     # split data
     X = df.iloc[:,0:12].values
