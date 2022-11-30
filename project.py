@@ -38,11 +38,12 @@ with dataset:
 with preporcessing:
     st.write("""# Preprocessing""")
        
-    df= df.drop(["Unnamed: 0"], axis=1)
-    df['Category'].loc[df['Category'].isin(["1=Hepatitis","2=Fibrosis", "3=Cirrhosis"])] = 1
-    df['Category'].loc[df['Category'].isin(["0=Blood Donor", "0s=suspect Blood Donor"])] = 0
-    df['Sex'].loc[df['Sex']=='m']=1
-    df['Sex'].loc[df['Sex']=='f']=0
+    df= df.drop(["Unnamed: 0"], axis=1, inplace=True)
+    df.replace(to_replace=['0=Blood Donor', '0s=suspect Blood Donor', '1=Hepatitis', '2=Fibrosis', '3=Cirrhosis'], value=['0','1','2','3','4'],inplace=True)
+    df['Category'].unique()
+    
+    daf.replace(to_replace=['m','f'], value=['0','1'],inplace=True)
+    st.dataFrame(df)
     
     data = pd.get_dummies(df, columns = ['Sex'],drop_first=True)
         
