@@ -79,7 +79,6 @@ with modelling:
     X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,random_state=0
                                                    
     # NB
-    GaussianNB(priors=None)
 
     # Fitting Naive Bayes Classification to the Training set with linear kernel
     nvklasifikasi = GaussianNB()
