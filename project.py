@@ -42,8 +42,8 @@ with preporcessing:
     df['Category'].loc[df['Category'].isin(["1=Hepatitis","2=Fibrosis", "3=Cirrhosis"])] = 1
     df['Category'].loc[df['Category'].isin(["0=Blood Donor", "0s=suspect Blood Donor"])] = 0
     
-    df'Sex'].loc[df['Sex']=='m']=1
-    df'Sex'].loc[df['Sex']=='f']=0
+    df['Sex'].loc[df['Sex']=='m']=1
+    df['Sex'].loc[df['Sex']=='f']=0
     st.dataFrame(df)
     
     scaler = MinMaxScaler()
