@@ -46,9 +46,8 @@ with preporcessing:
     df['Sex'].loc[df['Sex']=='f']=0
     
     scaler = MinMaxScaler()
-    scaler.fit(X)
-    X = scaler.transform(X)
-    X
+    scaled = scaler.fit_transform(X)
+    st.write("Hasil Preprocesing : ", scaled)
 
     X.shape, y.shape
     
@@ -62,9 +61,8 @@ with preporcessing:
     y=df.iloc[:, -1].values
     
     scaler = MinMaxScaler()
-    scaler.fit(X)
-    X = scaler.transform(X)
-    X
+    scaled = scaler.fit_transform(X)
+    st.write("Hasil Preprocesing : ", scaled)
 
     X.shape, y.shape
 
