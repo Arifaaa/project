@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 from sklearn import preprocessing
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
@@ -90,5 +89,3 @@ with modelling:
     label =["Akurat", "Error"]
     value = [hasil,1-hasil]
     explode = [0,0.2]
-    plt.pie(value, labels = label, explode = explode)
-    plt.show()
