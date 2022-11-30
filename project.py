@@ -49,8 +49,8 @@ with preporcessing:
     X = data.drop(['Category'],axis=1)
     y = data["Category"]
     
-    X=data_hf.iloc[:,0:10].values 
-    y=data_hf.iloc[:,10].values
+    X=df.iloc[:,0:10].values 
+    y=df.iloc[:,10].values
     from sklearn.preprocessing import LabelEncoder
     le = LabelEncoder()
     y = le.fit_transform
