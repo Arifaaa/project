@@ -55,17 +55,12 @@ with preporcessing:
     le = LabelEncoder()
     y = le.fit_transform
     
-    #minmax scaler
+    # minmax scaler
     scaler = MinMaxScaler()
     scaled = scaler.fit_transform(X)
     st.write("Hasil Preprocesing : ", scaled)
     
-    #data train dan data set
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
-    ss=StandardScaler()
-    X_test= ss.fit_transform(X_test)
-    X_train = ss.fit_transform(X_train)
-    
+        
 
 with modeling:
     st.write("""# Modeling """)
@@ -82,6 +77,12 @@ with modeling:
     from sklearn.preprocessing import LabelEncoder
     le = LabelEncoder()
     y = le.fit_transform 
+    
+    # data train dan data set
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+    ss=StandardScaler()
+    X_test= ss.fit_transform(X_test)
+    X_train = ss.fit_transform(X_train)
     
     import time
     start_time = time.time()
