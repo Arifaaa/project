@@ -38,7 +38,7 @@ with dataset:
 with preporcessing:
     st.write("""# Preprocessing""")
        
-    df= df.drop(["Unnamed: 0"], axis=1, inplace=True)
+    df= df.drop(["Unnamed: 0"], axis=1)
     df['Category'].loc[df['Category'].isin(["1=Hepatitis","2=Fibrosis", "3=Cirrhosis"])] = 1
     df['Category'].loc[df['Category'].isin(["0=Blood Donor", "0s=suspect Blood Donor"])] = 0
     
