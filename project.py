@@ -65,6 +65,7 @@ with preporcessing:
     from sklearn.compose import ColumnTransformer
     ct = ColumnTransformer(transformers=[("encoder", OneHotEncoder(), [1])], remainder="passthrough")
     X = np.array(ct.fit_transform(X))
+    X = pd.DataFrame(X, columns=X.columns)
     
     
     #split data training dan data test
