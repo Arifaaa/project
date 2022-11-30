@@ -64,10 +64,6 @@ with preporcessing:
     ct = ColumnTransformer(transformers=[("encoder", OneHotEncoder(), [1])], remainder="passthrough")
     X = np.array(ct.fit_transform(X))
     
-    from sklearn.impute import SimpleImputer
-    si = SimpleImputer(missing_values = np.nan, strategy ='mean')
-    si = si.fit(X[:, 0:13 ])   
-    X[:, 0:13 ] = si.transform(X[:, 0:13 ])
     
     #split data training dan data test
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
