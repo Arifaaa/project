@@ -45,10 +45,6 @@ with preporcessing:
     df['Sex'].loc[df['Sex']=='m']=1
     df['Sex'].loc[df['Sex']=='f']=0
     
-    scaler = MinMaxScaler()
-    scaled = scaler.fit_transform(X)
-    st.write("Hasil Preprocesing : ", scaled)
-
     X.shape, y.shape
     
     data = pd.get_dummies(df, columns = ['Sex'],drop_first=True)
