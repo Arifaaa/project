@@ -39,40 +39,29 @@ with preporcessing:
     st.write("""# Preprocessing""")
     
     df= df.drop(["Unnamed: 0"], axis=1)
+    df['Category'].loc[df['Category'].isin(["1=Hepatitis","2=Fibrosis", "3=Cirrhosis"])] = 1
+    df['Category'].loc[df['Category'].isin(["0=Blood Donor", "0s=suspect Blood Donor"])] = 0
+    df['Sex'].loc[df['Sex']=='m']=1
+    df['Sex'].loc[df['Sex']=='f']=0
     df.head()
     
-    li = list(df["Category"])
-    li2 = []
-    for i in range(len(li)) :
-        if li[i] == "0=Blood Donor":
-                li2.append(0)
-        elif li[i] == "0s=suspect Blood Donor":
-            li2.append(1)
-        elif li[i] == "1=Hepatitis":
-            li2.append(2)
-        else :
-            li2.append(3)
-    df["NewCategory"]= li2
-    df =df.drop(["Category"], axis =1)
-    df.head(615)
+    data = pd.get_dummies(data, columns = ['Sex'],drop_first=True)
+    data.head()
     
-    # split data
-    X = df.iloc[:,0:12].values
-    y = df.iloc[:, -1].values
+    scaler = MinMaxScaler()
+    scaler.fit(X)
+    X = scaler.transform(X)
     
-    # One Hot Encoding
-    from sklearn.preprocessing import OneHotEncoder
-    from sklearn.compose import ColumnTransformer
-    ct = ColumnTransformer(transformers=[("encoder", OneHotEncoder(), [1])], remainder="passthrough")
-    X = np.array(ct.fit_transform(X))
+    X = data.drop(['Category'],axis=1)
+    y = data["Category"]
     
-    labels = pd.get_dummies(df.Category).columns.values.tolist()
+    #data train dan data set
+    X_train,X_test,y_train,y_test= train_test_split(X,y,test_size=0.3,random_state=42,stratify=y)
+    X_train, y_train = pipeline.fit_resample(X_train, y_train)
+    X_train=standard_sc.fit_transform(X_train)
+    X_test=standard_sc.transform(X_test)
     
-    #split data training dan data test
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
-    ss=StandardScaler()
-    X_test= ss.fit_transform(X_test)
-    X_train = ss.fit_transform(X_train)
+    
 
 
 
