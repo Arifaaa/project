@@ -43,13 +43,17 @@ with preporcessing:
     df['Category'].loc[df['Category'].isin(["0=Blood Donor", "0s=suspect Blood Donor"])] = 0
     df['Sex'].loc[df['Sex']=='m']=1
     df['Sex'].loc[df['Sex']=='f']=0
-    df.head()
     
     data = pd.get_dummies(df, columns = ['Sex'],drop_first=True)
-    data.head()
         
     X = data.drop(['Category'],axis=1)
     y = data["Category"]
+    
+    from sklearn.preprocessing import OneHotEncoder
+    from sklearn.compose import ColumnTransformer
+    ct = ColumnTransformer(transformers=[("encoder", OneHotEncoder(), [1])], remainder="passthrough")
+    X = np.array(ct.fit_transform(X))
+    st.dataFrame(X)
     
     #data train dan data set
     X_train,X_test,y_train,y_test= train_test_split(X,y,test_size=0.3,random_state=42,stratify=y)
@@ -57,6 +61,7 @@ with preporcessing:
     ss=StandardScaler()
     X_test= ss.fit_transform(X_test)
     X_train = ss.fit_transform(X_train)
+    
     
     
 
