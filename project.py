@@ -73,8 +73,16 @@ with modelling:
     kn = st.checkbox('K-Nearest Neighbor')
     des = st.checkbox('Decision Tree')
     mod = st.button("Modeling")
-     
+    
+    X=data_hf.iloc[:,0:10].values 
+    y=data_hf.iloc[:,10].values
+    from sklearn.preprocessing import LabelEncoder
+    le = LabelEncoder()
+    y = le.fit_transform 
     X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,random_state=0)
+    
+    import time
+    start_time = time.time()
     
     # Decision Tree
     dt = DecisionTreeClassifier()
