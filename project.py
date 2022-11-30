@@ -75,7 +75,9 @@ with modelling:
     kn = st.checkbox('K-Nearest Neighbor')
     des = st.checkbox('Decision Tree')
     mod = st.button("Modeling")
-      
+     
+    X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,random_state=0
+                                                   
     # NB
     GaussianNB(priors=None)
 
