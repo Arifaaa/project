@@ -23,7 +23,7 @@ from sklearn.utils.validation import joblib
 st.write("PROJECT DATA MINING")
 st.title("Hepatitis C Prediction System")
 st.write("Arifatul Maghfiroh - 200411100201")
-st.write("Grade: Penambangan Data C")
+st.write("Penambangan Data C")
 dataset, preporcessing, modeling, implementation = st.tabs(["Dataset", "Prepocessing", "Modeling", "Implementation"])
 
 with dataset:
@@ -36,7 +36,7 @@ with dataset:
 
 
 with preporcessing:
-    st.write("""# Upload File""")
+    st.write("""# Preprocessing""")
     df[[ "Category" "Age", "Sex", "ALB", "ALP", "ALT", "AST", "BIL", "CHE", "CHOL", "CREA", "GGT", "PROT"]].agg(['min','max'])
 
     df.hepatitis.value_counts()
