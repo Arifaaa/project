@@ -49,8 +49,8 @@ with preporcessing:
     X = data.drop(['Category'],axis=1)
     y = data["Category"]
     
-    X=df.iloc[:,0:10].values 
-    y=df.iloc[:,10].values
+    X=df.iloc[:,0:12].values 
+    y=df.iloc[:, -1].values
     from sklearn.preprocessing import LabelEncoder
     le = LabelEncoder()
     y = le.fit_transform
@@ -61,6 +61,10 @@ with preporcessing:
     st.write("Hasil Preprocesing : ", scaled)
     
     #data train dan data set
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+    ss=StandardScaler()
+    X_test= ss.fit_transform(X_test)
+    X_train = ss.fit_transform(X_train)
     
 
 with modeling:
@@ -73,8 +77,8 @@ with modeling:
     des = st.checkbox('Decision Tree')
     mod = st.button("Modeling")
     
-    X=df.iloc[:,0:10].values 
-    y=df.iloc[:,10].values
+    X=df.iloc[:,0:12].values 
+    y=df.iloc[:, -1].values
     from sklearn.preprocessing import LabelEncoder
     le = LabelEncoder()
     y = le.fit_transform 
