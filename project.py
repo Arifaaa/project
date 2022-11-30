@@ -62,9 +62,7 @@ with preporcessing:
     
     #data train dan data set
     X_train,X_test,y_train,y_test=train_test_split(scaled,y,test_size=0.3,random_state=0)
-    sc = StandardScaler()
-    X_train = sc.fit_transform(X_train)
-    X_test = sc.transform(X_test)
+    
 
 with modelling:
     st.write("""# Modeling """)
