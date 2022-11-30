@@ -54,8 +54,9 @@ with preporcessing:
     #data train dan data set
     X_train,X_test,y_train,y_test= train_test_split(X,y,test_size=0.3,random_state=42,stratify=y)
     
-    X_train=standard_sc.fit_transform(X_train)
-    X_test=standard_sc.transform(X_test)
+    ss=StandardScaler()
+    X_test= ss.fit_transform(X_test)
+    X_train = ss.fit_transform(X_train)
     
     
 
