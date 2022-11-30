@@ -37,13 +37,43 @@ with dataset:
 
 with preporcessing:
     st.write("""# Preprocessing""")
-    df[[ "Category" "Age", "Sex", "ALB", "ALP", "ALT", "AST", "BIL", "CHE", "CHOL", "CREA", "GGT", "PROT"]].agg(['min','max'])
-
-    df.hepatitis.value_counts()
-    df = df.drop(columns=["id"])
-
-    X = df.drop(columns="hepatitis")
-    y = df.hepatitis
+    data= data.drop(["Unnamed: 0"], axis=1)
+    
+    li = list(data["Category"])
+    li2 = []
+    for i in range(len(li)) :
+        if li[i] == "0=Blood Donor":
+                li2.append(0)
+        elif li[i] == "0s=suspect Blood Donor":
+            li2.append(1)
+        elif li[i] == "1=Hepatitis":
+            li2.append(2)
+        else :
+            li2.append(3)
+    data["NewCategory"]= li2
+    data =data.drop(["Category"], axis =1)
+    data.head(615)
+    
+    # split data
+    X = data.iloc[:,0:12].values
+    y = data.iloc[:, -1].values
+    
+    # One Hot Encoding
+    from sklearn.preprocessing import OneHotEncoder
+    from sklearn.compose import ColumnTransformer
+    ct = ColumnTransformer(transformers=[("encoder", OneHotEncoder(), [1])], remainder="passthrough")
+    X = np.array(ct.fit_transform(X))
+    
+    from sklearn.impute import SimpleImputer
+    si = SimpleImputer(missing_values = np.nan, strategy ='mean')
+    si = si.fit(X[:, 0:13 ])   
+    X[:, 0:13 ] = si.transform(X[:, 0:13 ])
+    
+    #split data training dan data test
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+    ss=StandardScaler()
+    X_test= ss.fit_transform(X_test)
+    X_train = ss.fit_transform(X_train)
 
 
 
