@@ -24,15 +24,14 @@ st.write("PROJECT DATA MINING")
 st.title("Hepatitis C Prediction System")
 st.write("Arifatul Maghfiroh - 200411100201")
 st.write("Grade: Penambangan Data C")
-upload_data, preporcessing, modeling, implementation = st.tabs(["Upload Data", "Prepocessing", "Modeling", "Implementation"])
+dataset, preporcessing, modeling, implementation = st.tabs(["Dataset", "Prepocessing", "Modeling", "Implementation"])
 
-with upload_data:
-    st.write("""# Upload File""")
+with dataset:
+    st.write("""# Data Hepatitis""")
     st.write("Dataset yang digunakan adalah Hepatitis-C Prediction dataset yang diambil dari https://www.kaggle.com/datasets/fedesoriano/hepatitis-c-dataset")
     st.write("Total datanya adalah 615 dengan data training 80% (4088) dan data testing 20% (1022)")
-    uploaded_files = st.file_uploader("Upload file CSV", accept_multiple_files=True)
-    for uploaded_file in uploaded_files:
-        df = pd.read_csv(uploaded_file)
+    
+    df = pd.read_csv(uploaded_file)
         st.write("Nama File Anda = ", uploaded_file.name)
         st.dataframe(df)
 
