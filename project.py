@@ -63,7 +63,7 @@ with preporcessing:
     #data train dan data set
     
 
-with modelling:
+with modeling:
     st.write("""# Modeling """)
     
     st.subheader("Berikut ini adalah pilihan untuk Modeling")
