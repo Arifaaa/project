@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 from sklearn import preprocessing
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
@@ -76,66 +77,18 @@ with modelling:
     des = st.checkbox('Decision Tree')
     mod = st.button("Modeling")
      
-    X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,random_state=0
-                                                   
-    # NB
-
-    # Fitting Naive Bayes Classification to the Training set with linear kernel
-    nvklasifikasi = GaussianNB()
-    nvklasifikasi = nvklasifikasi.fit(X_train, y_train)
-
-    # Predicting the Test set results
-    y_pred = nvklasifikasi.predict(X_test)
+    X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,random_state=0)
     
-    y_compare = np.vstack((y_test,y_pred)).T
-    nvklasifikasi.predict_proba(X_test)
-    akurasi = round(100 * accuracy_score(y_test, y_pred))
-    # akurasi = 10
-
-    # KNN 
-    K=10
-    knn=KNeighborsClassifier(n_neighbors=K)
-    knn.fit(X_train,y_train)
-    y_pred=knn.predict(X_test)
-
-    skor_akurasi = round(100 * accuracy_score(y_test,y_pred))
-
-    # DT
-
+    # Decision Tree
     dt = DecisionTreeClassifier()
     dt.fit(X_train, y_train)
-    # prediction
-    dt.score(X_test, y_test)
-    y_pred = dt.predict(X_test)
-    #Accuracy
-    akurasiii = round(100 * accuracy_score(y_test,y_pred))
-
-    if naive :
-        if mod :
-            st.write('Model Naive Bayes accuracy score: {0:0.2f}'. format(akurasi))
-    if kn :
-        if mod:
-            st.write("Model KNN accuracy score : {0:0.2f}" . format(skor_akurasi))
-    if des :
-        if mod :
-            st.write("Model Decision Tree accuracy score : {0:0.2f}" . format(akurasiii))
-    
-    eval = st.button("Evaluasi semua model")
-    if eval :
-        # st.snow()
-        source = pd.DataFrame({
-            'Nilai Akurasi' : [akurasi,skor_akurasi,akurasiii],
-            'Nama Model' : ['Naive Bayes','KNN','Decision Tree']
-        })
-
-        bar_chart = alt.Chart(source).mark_bar().encode(
-            y = 'Nilai Akurasi',
-            x = 'Nama Model'
-        )
-
-        st.altair_chart(bar_chart,use_container_width=True)
-    
-
-
-
-    
+    preddt = dt.predict(X_test)
+    dtmean = cross_val_score(estimator=dt, X=X_train, y=y_train, cv =3)
+    hasil = dtmean.mean()
+    print(f"Decision Trees Accuracy : {dtmean.mean()}\n")
+    print("Processing Time:  %s seconds " % (time.time() - start_time))
+    label =["Akurat", "Error"]
+    value = [hasil,1-hasil]
+    explode = [0,0.2]
+    plt.pie(value, labels = label, explode = explode)
+    plt.show()
