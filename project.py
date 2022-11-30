@@ -44,7 +44,6 @@ with preporcessing:
     
     df['Sex'].loc[df['Sex']=='m']=1
     df['Sex'].loc[df['Sex']=='f']=0
-    st.dataFrame(df)
     
     scaler = MinMaxScaler()
     scaler.fit(X)
