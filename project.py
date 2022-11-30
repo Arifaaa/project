@@ -37,7 +37,7 @@ with dataset:
 
 with preporcessing:
     st.write("""# Preprocessing""")
-    data= data.drop(["Unnamed: 0"], axis=1)
+    data = df.drop(["Unnamed: 0"], axis=1)
     
     li = list(data["Category"])
     li2 = []
@@ -51,12 +51,12 @@ with preporcessing:
         else :
             li2.append(3)
     data["NewCategory"]= li2
-    data =data.drop(["Category"], axis =1)
+    data =df.drop(["Category"], axis =1)
     data.head(615)
     
     # split data
-    X = data.iloc[:,0:12].values
-    y = data.iloc[:, -1].values
+    X = df.iloc[:,0:12].values
+    y = df.iloc[:, -1].values
     
     # One Hot Encoding
     from sklearn.preprocessing import OneHotEncoder
