@@ -132,7 +132,7 @@ with modeling:
         )
 
         st.altair_chart(bar_chart,use_container_width=True)
-with tab4:
+with implementation:
     st.write("# Implementation")
     mass = st.number_input('Masukkan berat buah')
 
