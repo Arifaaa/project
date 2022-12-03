@@ -19,7 +19,7 @@ from sklearn.svm import SVC
 import altair as alt
 
 #display
-st.set_page_config(page_title="Arifatul Maghfiroh", page_icon='icon.png')
+st.set_page_config(page_title="Arifatul Maghfiroh", page_icon='logo.png')
 
 @st.cache()
 def progress():
