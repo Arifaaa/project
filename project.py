@@ -36,7 +36,7 @@ with upload_data:
     progress()
     url = "https://www.kaggle.com/datasets/mjamilmoughal/fruits-with-colors-dataset"
     st.markdown(
-        f'[Dataset BMI]({url})')
+        f'[Dataset Fruits With Colors]({url})')
     data = pd.read_table("https://raw.githubusercontent.com/Arifaaa/dataset/main/fruit_data_with_colors.txt")
     st.dataframe(data)
 
