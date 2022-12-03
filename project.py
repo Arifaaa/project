@@ -1,127 +1,72 @@
 import streamlit as st
+import joblib
+import time
 import pandas as pd
 import numpy as np
 from sklearn import preprocessing
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
 from numpy import array
 from sklearn import tree
-from sklearn.naive_bayes import GaussianNB
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, precision_score, f1_score
-from sklearn.tree import DecisionTreeClassifier
 from collections import OrderedDict
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.ensemble import BaggingClassifier
 from sklearn.datasets import make_classification
 from sklearn.svm import SVC
 import altair as alt
-from sklearn.utils.validation import joblib
 
+@st.cache()
+def progress():
+    with st.spinner('Wait for it...'):
+        time.sleep(5)
 
-
-st.write("PROJECT DATA MINING")
-st.title("Hepatitis C Prediction System")
+st.title("UAS DATA MINING C")
 st.write("Arifatul Maghfiroh - 200411100201")
-st.write("Penambangan Data C")
-upload_data, preporcessing, modeling, implementation = st.tabs(["Upload Data", "Prepocessing", "Modeling", "Implementation"])
+
+upload_data, preporcessing, modeling, implementation = st.tabs(["Fruits Data", "Prepocessing", "Modeling", "Implementation"])
 
 
 with upload_data:
-    st.write("""# Upload File""")
-    st.write("Dataset yang digunakan adalah healthcare-dataset-stroke-data dataset yang diambil dari https://www.kaggle.com/datasets/fedesoriano/hepatitis-c-dataset")
-    st.write("Total datanya adalah 615 dengan data training 80% (492) dan data testing 20% (123)")
-    df = pd.read_csv("https://raw.githubusercontent.com/Arifaaa/dataset/main/HepatitisCdata.csv")
-    st.dataframe(df)
+    progress()
+    url = "https://www.kaggle.com/datasets/mjamilmoughal/fruits-with-colors-dataset"
+    st.markdown(
+        f'[Dataset BMI]({url})')
+    data = pd.read_table("https://storage.googleapis.com/kagglesdsdata/datasets/9590/13660/fruit_data_with_colors.txt?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=gcp-kaggle-com%40kaggle-161607.iam.gserviceaccount.com%2F20221130%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20221130T231648Z&X-Goog-Expires=259200&X-Goog-SignedHeaders=host&X-Goog-Signature=7300a8ae2929809e2253c9fa728b0e562aa4007b7292cbd1d1955d03e0b37f5017cb4c547e3e7a71fa7a1da4d1ef0faa9953bb6fbf0898f9a2df0731d4ad4ce83f20e07cc42e01d3b04fe3eb87bfc55efab63d39315204365157b9a409cb0eb5e720948bcaa68c1d28924e818d839c7135a8cf91b002e151836d46b81d7e10110d4fa54f64bc2be7cb951c447d76d4e899dca118faf110fdd6ae6d133e50a90be490f1dfe7cf6890a44efccedcb5f3a1ce04143d7e8f9c1ccc307b4934511170b120b4cab8e90c7ef3b0bf4d4feb80ca18851bb647b94e7c87067618e6e14c189fc422dc21bbde50c2510aa19f9acb3518e47185cffef573aac859e4237b6df6")
+    st.dataframe(data)
 
 
 with preporcessing:
-    st.write("""# Preprocessing""")
-    df[["Category", "Age", "Sex", "ALB", "ALP", "ALT", "AST", "BIL", "CHE", "CHOL", "CREA", "GGT", "PROT"]].agg(['min','max'])
+    progress()
+    data['fruit_name'].value_counts()
+    X=data.drop(columns=['fruit_name','fruit_subtype'],axis=1)
 
-    df.Category.value_counts()
-    df = df.drop(columns=["Unnamed: 0"])
-
-    X = df.drop(columns="Category")
-    y = df.Category
-    "### Membuang fitur yang tidak diperlukan"
-    df
-
-    le = preprocessing.LabelEncoder()
-    le.fit(y)
-    y = le.transform(y)
-
-    "### Transformasi Label"
-    y
-
-    le.inverse_transform(y)
-
-    labels = pd.get_dummies(df.Category).columns.values.tolist()
-
-    "### Label"
-    labels
-
-    st.markdown("# Normalize")
-
-    "### Normalize data"
-
-    dataubah=df.drop(columns=['Sex','Category'])
-    dataubah
-
-    "### Normalize data gender"
-    data_sex=df[['Sex']]
-    Sex = pd.get_dummies(data_sex)
-    Sex
-
-    "### Normalize data Category"
-    data_cat=df[['Category']]
-    Category = pd.get_dummies(data_cat)
-    Category
-
-    dataOlah = pd.concat([Sex, Category], axis=1)
-    dataHasil = pd.concat([df,dataOlah], axis = 1)
-
-    X = dataHasil.drop(columns=["Sex", "Category"])
-    y = dataHasil.Category
-    "### Normalize data hasil"
-    X
-
-    X=df[["Age", "Sex", "ALB", "ALP", "ALT", "AST", "BIL", "CHE", "CHOL", "CREA", "GGT", "PROT"]]
-    y=df["Category"].values
-    
-    
-    scaler=MinMaxScaler()
-    scaler.fit(X)
-    X=scaler.transform(X)
-    "### Normalize data transformasi"
     X
     
-    labels = pd.get_dummies(dataHasil.Category).columns.values.tolist()
-
-    # """## Normalisasi MinMax Scaler"""
-
+    x = data[["mass","width","height","color_score"]]
+    y = data["fruit_label"].values
     
-    scaler=MinMaxScaler()
-    scaler.fit(X)
-    X=scaler.transform(X)
-    X
-
-    X.shape, y.shape
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
-    ss=StandardScaler()
-    X_test= ss.fit_transform(X_test)
-    X_train = ss.fit_transform(X_train)
-
-
+    st.write("""# Normalisasi MinMaxScaler""")
+    "### Mengubah skala nilai terkecil dan terbesar dari dataset ke skala tertentu.pada dataset ini skala terkecil = 0, skala terbesar= 1"
+    
+    scaler = preprocessing.MinMaxScaler(feature_range=(0,1))
+    x_scaled= scaler.fit_transform(x)
+    x_scaled
 
 with modeling:
-    X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=4)
+    progress()
+    x_train, x_test,y_train,y_test= train_test_split(x,y,random_state=0)    
+    x_train_scaled, x_test_scaled,y_train_scaled,y_test_scaled= train_test_split(x_scaled,y,random_state=0)
     from sklearn.preprocessing import StandardScaler
     sc = StandardScaler()
-    X_train = sc.fit_transform(X_train)
-    X_test = sc.transform(X_test)
-    
+    x_train = sc.fit_transform(x_train)
+    x_test = sc.transform(x_test)
+    # from sklearn.feature_extraction.text import CountVectorizer
+    # cv = CountVectorizer()
+    # x_train = cv.fit_transform(x_train)
+    # x_test = cv.fit_transform(x_test)
     st.write("""# Modeling """)
     st.subheader("Berikut ini adalah pilihan untuk Modeling")
     st.write("Pilih Model yang Anda inginkan untuk Cek Akurasi")
@@ -134,33 +79,32 @@ with modeling:
     GaussianNB(priors=None)
 
     # Fitting Naive Bayes Classification to the Training set with linear kernel
-    GaussianNB()
-    nvklasifikasi.fit(X_train, y_train)
+    nvklasifikasi = GaussianNB()
+    nvklasifikasi = nvklasifikasi.fit(x_train, y_train)
 
     # Predicting the Test set results
-    y_pred = nvklasifikasi.predict(X_test)
+    y_pred = nvklasifikasi.predict(x_test)
     
     y_compare = np.vstack((y_test,y_pred)).T
-    nvklasifikasi.predict_proba(X_test)
+    nvklasifikasi.predict_proba(x_test)
     akurasi = round(100 * accuracy_score(y_test, y_pred))
     # akurasi = 10
 
-    
     # KNN 
     K=10
     knn=KNeighborsClassifier(n_neighbors=K)
-    knn.fit(X_train,y_train)
-    y_pred=knn.predict(X_test)
+    knn.fit(x_train,y_train)
+    y_pred=knn.predict(x_test)
 
     skor_akurasi = round(100 * accuracy_score(y_test,y_pred))
 
     # DT
 
     dt = DecisionTreeClassifier()
-    dt.fit(X_train, y_train)
+    dt.fit(x_train, y_train)
     # prediction
-    dt.score(X_test, y_test)
-    y_pred = dt.predict(X_test)
+    dt.score(x_test, y_test)
+    y_pred = dt.predict(x_test)
     #Accuracy
     akurasiii = round(100 * accuracy_score(y_test,y_pred))
 
@@ -188,249 +132,22 @@ with modeling:
         )
 
         st.altair_chart(bar_chart,use_container_width=True)
-
-# with modeling:
-
-#     st.markdown("# Model")
-#     # membagi data menjadi data testing(20%) dan training(80%)
-    # X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=4)
-
-#     # X_train.shape, X_test.shape, y_train.shape, y_test.shape
-
-#     nb = st.checkbox("Metode Naive Bayes")
-#     knn = st.checkbox("Metode KNN")
-#     dt = st.checkbox("Metode Decision Tree")
-#     sb = st.button("submit")
-
-#     #Naive Bayes
-#     # Feature Scaling to bring the variable in a single scale
-#     sc = StandardScaler()
-#     X_train = sc.fit_transform(X_train)
-#     X_test = sc.transform(X_test)
-
-#     GaussianNB(priors=None)
-#     # Fitting Naive Bayes Classification to the Training set with linear kernel
-#     nvklasifikasi = GaussianNB()
-#     nvklasifikasi = nvklasifikasi.fit(X_train, y_train)
-
-#     # Predicting the Test set results
-#     y_pred = nvklasifikasi.predict(X_test)
-        
-#     y_compare = np.vstack((y_test,y_pred)).T
-#     nvklasifikasi.predict_proba(X_test)
-
-#     akurasi = round(100 * accuracy_score(y_test, y_pred))
-
-#     #Decision tree
-#     dt = DecisionTreeClassifier()
-#     dt.fit(X_train, y_train)
-
-#     # prediction
-#     dt.score(X_test, y_test)
-#     y_pred = dt.predict(X_test)
-#     #Accuracy
-#     akur = round(100 * accuracy_score(y_test,y_pred))
-
-#     K=10
-#     knn=KNeighborsClassifier(n_neighbors=K)
-#     knn.fit(X_train,y_train)
-#     y_pred=knn.predict(X_test)
-
-#     skor_akurasi = round(100 * accuracy_score(y_test,y_pred))
-    
-
-#     if nb:
-#         if sb:
-
-#             """## Naive Bayes"""
-            
-#             st.write('Model Naive Bayes accuracy score: {0:0.2f}'. format(akurasi))
-
-#     if knn:
-#         if sb:
-#             """## KNN"""
-
-#             st.write("Model KNN accuracy score : {0:0.2f}" . format(skor_akurasi))
-    
-#     if dt:
-#         if sb:
-#             """## Decision Tree"""
-#             st.write('Model Decission Tree Accuracy Score: {0:0.2f}'.format(akur))
-
-with implementation:
+with tab4:
     st.write("# Implementation")
-    Age = st.number_input('Masukkan Umur Pasien')
+    mass = st.number_input('Masukkan berat buah')
 
-    # GENDER
-    gender = st.radio("Gender",('Male', 'Female', 'Other'))
-    if gender == "Male":
-        gen_Female = 0
-        gen_Male = 1
-        gen_Other = 0
-    elif gender == "Female" :
-        gen_Female = 1
-        gen_Male = 0
-        gen_Other = 0
-    elif gender == "Other" :
-        gen_Female = 0
-        gen_Male = 0
-        gen_Other = 1
-
-    # HYPERTENSION
-    hypertension = st.radio("Hypertency",('No', 'Yes'))
-    if hypertension == "Yes":
-        hypertension = 1
-    elif hypertension == "No":
-        hypertension = 0
+    # width
+    width = st.number_input('Masukkan lebar buah')
     
-    # HEART
-    heart_disease = st.radio("heart_disease",('No', 'Yes'))
-    if heart_disease == "Yes":
-        heart_disease = 1
-        # heart_disease_N = 0
-    elif heart_disease == "No":
-        heart_disease = 0
-        # heart_disease_N = 1
 
-    # MARRIED
-    ever_married = st.radio("ever_married",('No', 'Yes'))
-    if ever_married == "Yes":
-        ever_married_Y = 1
-        ever_married_N = 0
-    elif ever_married == "No":
-        ever_married_Y = 0
-        ever_married_N = 1
+    # height
+    width = st.number_input('Masukkan tinggi buah')
 
-    # WORK
-    work_type = st.radio("work_type",('Govt_job', 'Never_worked','Private', 'Self_employed', 'childern'))
-    if work_type == "Govt_job":
-        work_type_G = 1
-        work_type_Never = 0
-        work_type_P = 0
-        work_type_S = 0
-        work_type_C = 0
-    elif work_type == "Never_worked":
-        work_type_G = 0
-        work_type_Never = 1
-        work_type_P = 0
-        work_type_S = 0
-        work_type_C = 0
-    elif work_type == "Private":
-        work_type_G = 0
-        work_type_Never = 0
-        work_type_P = 1
-        work_type_S = 0
-        work_type_C = 0
-    elif work_type == "Self_employed":
-        work_type_G = 0
-        work_type_Never = 0
-        work_type_P = 0
-        work_type_S = 1
-        work_type_C = 0
-    elif work_type == "childern":
-        work_type_G = 0
-        work_type_Never = 0
-        work_type_P = 0
-        work_type_S = 0
-        work_type_C = 1
-
-    # RESIDENCE
-    residence_type = st.radio("residence_type",('Rural', 'Urban'))
-    if residence_type == "Rural":
-        residence_type_R = 1
-        residence_type_U = 0
-    elif residence_type == "Urban":
-        residence_type_R = 0
-        residence_type_U = 1
-
-    # GLUCOSE
-    avg_glucose_level = st.number_input('Masukkan Angka glukosa')
-    
-    # SMOKE
-    smoking_status = st.radio("smoking_status",('Unknown', 'Formerly smoked', 'never smoked', 'smokes'))
-    if smoking_status == "Unknown":
-        smoking_status_U = 1
-        smoking_status_F = 0
-        smoking_status_N = 0
-        smoking_status_S = 0
-    elif smoking_status == "Formerly smoked":
-        smoking_status_U = 0
-        smoking_status_F = 1
-        smoking_status_N = 0
-        smoking_status_S = 0
-    elif smoking_status == "never smoked":
-        smoking_status_U = 0
-        smoking_status_F = 0
-        smoking_status_N = 1
-        smoking_status_S = 0
-    elif smoking_status == "smokes":
-        smoking_status_U = 0
-        smoking_status_F = 0
-        smoking_status_N = 0
-        smoking_status_S = 1
-        
-    bmi = st.number_input('Masukkan BMI')
-
-    
-    # Sex = st.radio(
-    # "Masukkan Jenis Kelamin Anda",
-    # ('Laki-laki','Perempuan'))
-    # if Sex == "Laki-laki":
-    #     Sex_Female = 0
-    #     Sex_Male = 1
-    # elif Sex == "Perempuan" :
-    #     Sex_Female = 1
-    #     Sex_Male = 0
-
-    # BP = st.radio(
-    # "Masukkan Tekanan Darah Anda",
-    # ('Tinggi','Normal','Rendah'))
-    # if BP == "Tinggi":
-    #     BP_High = 1
-    #     BP_LOW = 0
-    #     BP_NORMAL = 0
-    # elif BP == "Normal" :
-    #     BP_High = 0
-    #     BP_LOW = 0
-    #     BP_NORMAL = 1
-    # elif BP == "Rendah" :
-    #     BP_High = 0
-    #     BP_LOW = 1
-    #     BP_NORMAL = 0
-
-    # Cholesterol = st.radio(
-    # "Masukkan Kadar Kolestrol Anda",
-    # ('Tinggi','Normal'))
-    # if Cholesterol == "Tinggi" :
-    #     Cholestrol_High = 1
-    #     Cholestrol_Normal = 0 
-    # elif Cholesterol == "Normal":
-    #     Cholestrol_High = 0
-    #     Cholestrol_Normal = 1
-        
-    # Na_to_K = st.number_input('Masukkan Rasio Natrium Ke Kalium dalam Darah')
-
-
-
+    #color_score
+    color_score = st.number_input('Masukkan nilai warna buah')
     def submit():
         # input
-        inputs = np.array([[
-            Age,
-            hypertension,
-            heart_disease,
-            avg_glucose_level,
-            gen_Female, gen_Male, gen_Other,
-            ever_married_N, ever_married_Y,
-            work_type_G, work_type_Never, work_type_P, work_type_S, work_type_C,
-            residence_type_R, residence_type_U,
-            smoking_status_U, smoking_status_F, smoking_status_N, smoking_status_S, bmi
-            ]])
-        # st.write(inputs)
-        # baru = pd.DataFrame(inputs)
-        # input = pd.get_dummies(baru)
-        # st.write(input)
-        # inputan = np.array(input)
-        # import label encoder
+        inputs = np.array([[mass,width,height,color_score]])
         le = joblib.load("le.save")
         model1 = joblib.load("knn.joblib")
         y_pred3 = model1.predict(inputs)
@@ -440,4 +157,3 @@ with implementation:
     if all :
         st.balloons()
         submit()
-
