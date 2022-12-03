@@ -29,7 +29,7 @@ def progress():
 st.title("UAS DATA MINING C")
 st.write("Arifatul Maghfiroh - 200411100201")
 
-upload_data, preporcessing, modeling, implementation = st.tabs(["Fruits Data", "Prepocessing", "Modeling", "Implementation"])
+upload_data, preporcessing, modeling, implementation = st.tabs(["Fruits Data", "Preprocessing", "Modeling", "Implementation"])
 
 
 with upload_data:
