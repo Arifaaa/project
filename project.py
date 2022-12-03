@@ -34,7 +34,7 @@ with upload_data:
     url = "https://www.kaggle.com/datasets/mjamilmoughal/fruits-with-colors-dataset"
     st.markdown(
         f'[Dataset BMI]({url})')
-    data = pd.read_table("https://storage.googleapis.com/kagglesdsdata/datasets/9590/13660/fruit_data_with_colors.txt?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=gcp-kaggle-com%40kaggle-161607.iam.gserviceaccount.com%2F20221130%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20221130T231648Z&X-Goog-Expires=259200&X-Goog-SignedHeaders=host&X-Goog-Signature=7300a8ae2929809e2253c9fa728b0e562aa4007b7292cbd1d1955d03e0b37f5017cb4c547e3e7a71fa7a1da4d1ef0faa9953bb6fbf0898f9a2df0731d4ad4ce83f20e07cc42e01d3b04fe3eb87bfc55efab63d39315204365157b9a409cb0eb5e720948bcaa68c1d28924e818d839c7135a8cf91b002e151836d46b81d7e10110d4fa54f64bc2be7cb951c447d76d4e899dca118faf110fdd6ae6d133e50a90be490f1dfe7cf6890a44efccedcb5f3a1ce04143d7e8f9c1ccc307b4934511170b120b4cab8e90c7ef3b0bf4d4feb80ca18851bb647b94e7c87067618e6e14c189fc422dc21bbde50c2510aa19f9acb3518e47185cffef573aac859e4237b6df6")
+    data = pd.read_table("https://raw.githubusercontent.com/Arifaaa/dataset/main/fruit_data_with_colors.txt")
     st.dataframe(data)
 
 
