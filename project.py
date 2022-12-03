@@ -18,6 +18,9 @@ from sklearn.datasets import make_classification
 from sklearn.svm import SVC
 import altair as alt
 
+#display
+st.set_page_config(page_title="Arifatul Maghfiroh", page_icon='icon.png')
+
 @st.cache()
 def progress():
     with st.spinner('Wait for it...'):
