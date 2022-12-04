@@ -52,8 +52,9 @@ with preporcessing:
     y = data["fruit_label"].values
     
     st.write("""# Normalisasi MinMaxScaler""")
-    "### Mengubah skala nilai terkecil dan terbesar dari dataset ke skala tertentu.pada dataset ini skala terkecil = 0, skala terbesar= 1"
     
+    data_min = x.min()
+    data_max = x.max()
     scaler = preprocessing.MinMaxScaler(feature_range=(0,1))
     x_scaled= scaler.fit_transform(x)
     x_scaled
@@ -149,25 +150,38 @@ with modeling:
 with implementation:
     st.write("# Implementation")
     mass = st.number_input('Masukkan berat buah')
-
-    # width
     width = st.number_input('Masukkan lebar buah')
-    
-
-    # height
-    width = st.number_input('Masukkan tinggi buah')
-
-    #color_score
+    height = st.number_input('Masukkan tinggi buah')
     color_score = st.number_input('Masukkan nilai warna buah')
-    def submit():
-        # input
-        inputs = np.array([[mass,width,height,color_score]])
-        le = joblib.load("le.save")
-        model1 = joblib.load("knn.joblib")
-        y_pred3 = model1.predict(inputs)
-        st.write(f"Berdasarkan data yang Anda masukkan, maka anda dinyatakan : {le.inverse_transform(y_pred3)[0]}")
+    model = st.selectbox('Pilih model yang akan digunakan',('Naive Bayes','KNN','Decision Tree'))
+    
+    prediksi = st.form_submit_button("Submit")
+        if prediksi:
+            inputs = np.array([
+                mass,
+                width,
+                height,
+                color_score
+            ])
 
-    all = st.button("Submit")
-    if all :
-        st.balloons()
-        submit()
+            df_min = X.min()
+            df_max = X.max()
+            input_norm = ((inputs - df_min) / (df_max - df_min))
+            input_norm = np.array(input_norm).reshape(1, -1)
+
+            if model == 'Gaussian Naive Bayes':
+                mod = gaussian
+            if model == 'K-NN':
+                mod = knn 
+            if model == 'Decision Tree':
+                mod = dt
+
+            input_pred = mod.predict(input_norm)
+
+
+            st.subheader('Hasil Prediksi')
+            st.write('Menggunakan Pemodelan :', model)
+
+            st.write(input_pred)
+    
+   
