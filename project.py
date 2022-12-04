@@ -58,7 +58,7 @@ with preporcessing:
     x_scaled= scaler.fit_transform(x)
     x_scaled
     
-    dumies = pd.get_dummies(data.fruit_name).columns.value.tolist()
+    dumies = pd.get_dummies(data.fruit_name).columns.values.tolist()
     dumies = np.array(dumies)
     
     labels = pd.DataFrame({
