@@ -156,32 +156,27 @@ with implementation:
     model = st.selectbox('Pilih model yang akan digunakan',('Naive Bayes','KNN','Decision Tree'))
     
     prediksi = st.form_submit_button("Submit")
-        if prediksi:
-            inputs = np.array([
-                mass,
-                width,
-                height,
-                color_score
-            ])
-
-            df_min = X.min()
-            df_max = X.max()
-            input_norm = ((inputs - df_min) / (df_max - df_min))
-            input_norm = np.array(input_norm).reshape(1, -1)
-
-            if model == 'Gaussian Naive Bayes':
-                mod = gaussian
-            if model == 'K-NN':
-                mod = knn 
-            if model == 'Decision Tree':
-                mod = dt
-
-            input_pred = mod.predict(input_norm)
-
-
-            st.subheader('Hasil Prediksi')
-            st.write('Menggunakan Pemodelan :', model)
-
-            st.write(input_pred)
     
+    if prediksi:
+        inputs = np.array([
+            mass,
+            width,
+            height,
+            color_score
+        ])
+    df_min = X.min()
+    df_max = X.max()
+    input_norm = ((inputs - df_min) / (df_max - df_min))
+    input_norm = np.array(input_norm).reshape(1, -1)
+    if model == 'Gaussian Naive Bayes':
+        mod = gaussian
+    if model == 'K-NN':
+        mod = knn 
+    if model == 'Decision Tree':
+        mod = dt
+
+    input_pred = mod.predict(input_norm)
+    st.subheader('Hasil Prediksi')
+    st.write('Menggunakan Pemodelan :', model)
+    st.write(input_pred)   
    
