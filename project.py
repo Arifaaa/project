@@ -57,6 +57,17 @@ with preporcessing:
     scaler = preprocessing.MinMaxScaler(feature_range=(0,1))
     x_scaled= scaler.fit_transform(x)
     x_scaled
+    
+    dumies = pd.get_dummies(data.fruit_name).columns.value.tolist()
+    dumies = np.array(dumies)
+    
+    labels = pd.DataFrame({
+        '1' : [dumies[0]],
+        '2' : [dumies[1]],
+        '3' : [dumies[2]],
+        '4' : [dumies[3]]
+    })
+    st.write(labels)
 
 with modeling:
     progress()
