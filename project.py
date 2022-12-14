@@ -169,7 +169,7 @@ with implementation:
             data_min = X.min()
             data_max = X.max()
             input_norm = ((inputs - data_min) / (data_max - data_min))
-            input_norm = np.array(input_norm)
+            input_norm = np.array(input_norm).reshape(1, -1)
 
             if model == 'Gaussian Naive Bayes':
                 mod = gaussian
