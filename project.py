@@ -148,17 +148,16 @@ with modeling:
         
         
 with implementation:
-    progress()
     with st.form("my_form"):
         st.subheader("Implementasi")
-        mass = st.number_input('Masukkan berat buah (mass) : ')
-        width = st.number_input('Masukkan lebar buah (width) : ')
-        height = st.number_input('Masukkan tinggi buah (height) : ')
-        color_score = st.number_input('Masukkan skor warna (color_score) : ')
-        model = st.selectbox('Pilihlah model yang akan anda gunakan untuk melakukan prediksi?',
+        mass = st.number_input('Berat')
+        width = st.number_input('Lebar')
+        height = st.number_input('Tinggi')
+        color_score = st.number_input('Skor Warna')
+        model = st.selectbox('Model',
                 ('Gaussian Naive Bayes', 'K-NN', 'Decision Tree'))
 
-        prediksi = st.form_submit_button("Submit")
+        prediksi = st.form_submit_button("Predict")
         if prediksi:
             inputs = np.array([
                 mass,
@@ -166,7 +165,7 @@ with implementation:
                 height,
                 color_score
             ])
-
+            
             data_min = X.min()
             data_max = X.max()
             input_norm = ((inputs - data_min) / (data_max - data_min))
@@ -180,9 +179,6 @@ with implementation:
                 mod = dt
 
             input_pred = mod.predict(input_norm)
-
-
-            st.subheader('Hasil Prediksi')
-            st.write('Menggunakan Pemodelan :', model)
-
-            st.write(input_pred)
+            data_scaled = scaler.transform(inputs)
+            y_imp = rf.predict(data_scaled)
+            st.success(f'Data Predict = {label[y_imp[0]]}')
