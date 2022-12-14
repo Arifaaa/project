@@ -61,7 +61,6 @@ with preporcessing:
     st.write(scaled_features)
 
     st.subheader('Target Label')
-    
     dumies = pd.get_dummies(data.fruit_name).columns.values.tolist()
     dumies = np.array(dumies)
     
@@ -69,8 +68,9 @@ with preporcessing:
         '1' : [dumies[0]],
         '2' : [dumies[1]],
         '3' : [dumies[2]],
-        '4' : [dumies[3]]
+        '4' : [dumies[3]],
     })
+    
     st.write(labels)
 
 with modeling:
