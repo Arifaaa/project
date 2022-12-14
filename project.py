@@ -133,50 +133,63 @@ with modeling:
         if mod :
             st.write("Model Decision Tree accuracy score : {0:0.2f}" . format(akurasiii))
     
-    eval = st.button("Evaluasi semua model")
-    if eval :
-        # st.snow()
-        source = pd.DataFrame({
-            'Nilai Akurasi' : [akurasi,skor_akurasi,akurasiii],
-            'Nama Model' : ['Naive Bayes','KNN','Decision Tree']
+    grafik = st.form_submit_button("Grafik akurasi semua model")
+    if grafik:
+        data = pd.DataFrame({
+            'Akurasi' : [gaussian_akurasi, knn_akurasi, dt_akurasi],
+            'Model' : ['Gaussian Naive Bayes', 'K-NN', 'Decission Tree'],
         })
 
-        bar_chart = alt.Chart(source).mark_bar().encode(
-            y = 'Nilai Akurasi',
-            x = 'Nama Model'
+        chart = (
+            alt.Chart(data)
+            .mark_bar()
+            .encode(
+                alt.X("Akurasi"),
+                alt.Y("Model"),
+                alt.Color("Akurasi"),
+                alt.Tooltip(["Akurasi", "Model"]),
+            )
+            .interactive()
         )
-
-        st.altair_chart(bar_chart,use_container_width=True)
+        st.altair_chart(chart,use_container_width=True)
+        
+        
 with implementation:
-    st.write("# Implementation")
-    mass = st.number_input('Masukkan berat buah')
-    width = st.number_input('Masukkan lebar buah')
-    height = st.number_input('Masukkan tinggi buah')
-    color_score = st.number_input('Masukkan nilai warna buah')
-    model = st.selectbox('Pilih model yang akan digunakan',('Naive Bayes','KNN','Decision Tree'))
-    
-    prediksi = st.form_submit_button("Submit")
-    
-    if prediksi:
-        inputs = np.array([
-            mass,
-            width,
-            height,
-            color_score
-        ])
-    df_min = X.min()
-    df_max = X.max()
-    input_norm = ((inputs - df_min) / (df_max - df_min))
-    input_norm = np.array(input_norm).reshape(1, -1)
-    if model == 'Gaussian Naive Bayes':
-        mod = gaussian
-    if model == 'K-NN':
-        mod = knn 
-    if model == 'Decision Tree':
-        mod = dt
+    progress()
+    with st.form("my_form"):
+        st.subheader("Implementasi")
+        mass = st.number_input('Masukkan berat buah (mass) : ')
+        width = st.number_input('Masukkan lebar buah (width) : ')
+        height = st.number_input('Masukkan tinggi buah (height) : ')
+        color_score = st.number_input('Masukkan skor warna (color_score) : ')
+        model = st.selectbox('Pilihlah model yang akan anda gunakan untuk melakukan prediksi?',
+                ('Gaussian Naive Bayes', 'K-NN', 'Decision Tree'))
 
-    input_pred = mod.predict(input_norm)
-    st.subheader('Hasil Prediksi')
-    st.write('Menggunakan Pemodelan :', model)
-    st.write(input_pred)   
-   
+        prediksi = st.form_submit_button("Submit")
+        if prediksi:
+            inputs = np.array([
+                mass,
+                width,
+                height,
+                color_score
+            ])
+
+            df_min = X.min()
+            df_max = X.max()
+            input_norm = ((inputs - df_min) / (df_max - df_min))
+            input_norm = np.array(input_norm).reshape(1, -1)
+
+            if model == 'Gaussian Naive Bayes':
+                mod = gaussian
+            if model == 'K-NN':
+                mod = knn 
+            if model == 'Decision Tree':
+                mod = dt
+
+            input_pred = mod.predict(input_norm)
+
+
+            st.subheader('Hasil Prediksi')
+            st.write('Menggunakan Pemodelan :', model)
+
+            st.write(input_pred)
