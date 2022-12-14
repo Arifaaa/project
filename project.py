@@ -1,6 +1,4 @@
 import streamlit as st
-import joblib
-import time
 import pandas as pd
 import numpy as np
 from sklearn import preprocessing
@@ -9,13 +7,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
-from numpy import array
-from sklearn import tree
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, precision_score, f1_score
-from collections import OrderedDict
-from sklearn.datasets import make_classification
-from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
+from PIL import Image
 import altair as alt
 
 #display
