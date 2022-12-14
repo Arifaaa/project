@@ -31,9 +31,29 @@ with upload_data:
     url = "https://www.kaggle.com/datasets/mjamilmoughal/fruits-with-colors-dataset"
     st.markdown(
         f'[Dataset Fruits With Colors]({url})')
-    data = pd.read_table("https://raw.githubusercontent.com/Arifaaa/dataset/main/fruit_data_with_colors.txt")
-    st.dataframe(data)
-
+    
+    
+    dataset, ket = st.tabs(['Dataset', 'Dataset Description'])
+    with dataset:
+        data = pd.read_table("https://raw.githubusercontent.com/Arifaaa/dataset/main/fruit_data_with_colors.txt")
+        st.dataframe(data)
+        
+        
+    with ket:
+        st.write("""
+                Column
+                * Gender: Male / Female
+                * Height: Number(cm)
+                * Weight: Number(Kg)
+                * Index
+                Index 
+                * 0 - Extremely Weak
+                * 1 - Weak
+                * 2 - Normal
+                * 3 - Overweight
+                * 4 - Obesity
+                * 5 - Extreme Obesity
+                """)
 
 with preporcessing:
     progress()
