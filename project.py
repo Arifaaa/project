@@ -40,7 +40,7 @@ with upload_data:
         
         
     with ket:
-        st.write("###### Sumber Data Set dari Kaggle : https://www.kaggle.com/datasets/mjamilmoughal/fruits-with-colors-dataset")
+        st.write("## Sumber Data Set dari Kaggle : https://www.kaggle.com/datasets/mjamilmoughal/fruits-with-colors-dataset")
         st.write("""
                 Column
                 * Fruit label
