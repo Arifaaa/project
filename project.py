@@ -41,7 +41,7 @@ with preporcessing:
     data = data.drop(columns=['fruit_label','fruit_subtype'])
 
     X = data[["mass","width","height","color_score"]]
-    y = data["fruit_label"].values
+    y = data["fruit_name"].values
     data
     X    
     
