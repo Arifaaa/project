@@ -180,7 +180,7 @@ with implementation:
 
             input_pred = mod.predict(input_norm)
             
-            st.subheader('Hasil Prediksi')
-            st.write('Menggunakan Pemodelan :', model)
+            st.subheader('Prediction Results')
+            st.write('Using the', model, 'KNN model')
 
             st.write(input_pred)
