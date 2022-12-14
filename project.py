@@ -10,6 +10,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 from PIL import Image
 import altair as alt
+import time
 
 #display
 st.set_page_config(page_title="Arifatul Maghfiroh", page_icon='logo1.png')
