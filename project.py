@@ -40,19 +40,20 @@ with upload_data:
         
         
     with ket:
+        st.write("###### Sumber Data Set dari Kaggle : https://www.kaggle.com/datasets/mjamilmoughal/fruits-with-colors-dataset")
         st.write("""
                 Column
-                * Gender: Male / Female
-                * Height: Number(cm)
-                * Weight: Number(Kg)
-                * Index
+                * Fruit label
+                * Fruit name
+                * Fruit subtype
+                * Mass width
+                * Height
+                * Color score
                 Index 
-                * 0 - Extremely Weak
-                * 1 - Weak
-                * 2 - Normal
-                * 3 - Overweight
-                * 4 - Obesity
-                * 5 - Extreme Obesity
+                * 0 - Apple
+                * 1 - Mandarin
+                * 2 - Orange
+                * 3 - Lemon
                 """)
 
 with preporcessing:
