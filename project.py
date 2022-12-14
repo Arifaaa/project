@@ -38,7 +38,7 @@ with upload_data:
 with preporcessing:
     progress()
     st.subheader("""Normalisasi Data""")
-    data = data.drop(columns=['fruit_name','fruit_subtype'])
+    data = data.drop(columns=['fruit_label','fruit_subtype'])
 
     X = data[["mass","width","height","color_score"]]
     y = data["fruit_label"].values
