@@ -181,6 +181,6 @@ with implementation:
             input_pred = mod.predict(input_norm)
             
             st.subheader('Prediction Results')
-            st.write('Using the', model, 'KNN model')
+            st.write('Using the', model, 'model')
 
             st.write(input_pred)
