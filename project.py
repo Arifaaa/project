@@ -169,7 +169,7 @@ with implementation:
             data_min = X.min()
             data_max = X.max()
             input_norm = ((inputs - data_min) / (data_max - data_min))
-            input_norm = np.array(input_norm).reshape(1, -1)
+            input_norm = np.array(input_norm)
 
             if model == 'Gaussian Naive Bayes':
                 mod = gaussian
@@ -179,6 +179,8 @@ with implementation:
                 mod = dt
 
             input_pred = mod.predict(input_norm)
-            data_scaled = scaler.transform(inputs)
-            y_imp = rf.predict(data_scaled)
-            st.success(f'Data Predict = {label[y_imp[0]]}')
+            
+            st.subheader('Hasil Prediksi')
+            st.write('Menggunakan Pemodelan :', model)
+
+            st.write(input_pred)
