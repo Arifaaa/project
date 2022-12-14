@@ -42,14 +42,14 @@ with upload_data:
     with ket:
         st.write("Sumber data dari Kaggle : https://www.kaggle.com/datasets/mjamilmoughal/fruits-with-colors-dataset")
         st.write("""
-                Column
+                Column :
                 * Fruit label
                 * Fruit name
                 * Fruit subtype
                 * Mass width
                 * Height
                 * Color score
-                Index 
+                Index :
                 * 0 - Apple
                 * 1 - Mandarin
                 * 2 - Orange
